@@ -1,0 +1,55 @@
+Topic Challenge - Working with cvs files
+Professor: Laurie Cutrone
+Student: Felix Cazarez
+Programming for Data Science
+Using your favorite text editor, create a weather.csv file with the following lines, making sure there are no spaces in between items:
+"Temp", "Press", "Humidity"
+
+1.1, 55.5, 22.2
+
+3.3, 4.4, 6.6
+
+8.8, 99.9, 7.7
+
+Write a function that reads the CSV file into a dictionary and calculates the average temperature.
+
+Print out all the original data and the average temperature on the screen.
+
+​
+def read_csv(file_name):
+    '''read_csv function takes in the scv file as a parameter and 
+    opens it using the with statement to ensure the file is properly closed even if an error occurs'''
+    # Open the file for reading and use the with statement to ensure it is properly closed
+    with open(file_name, "r") as file:
+               
+        # Skip the first line
+        file.readline() 
+        
+        # Use a list comprehension to extract the first item (temperature) from each line in the file, which is split by the comma (',') delimiter
+        data = [float(line.split(',')[0]) for line in file]
+        
+        # Calculate the average temperature by summing up all the temperature values and dividing by the number of values
+        avg_data = sum(data) / len(data)
+        
+        # Return the average temperature value
+        return avg_data
+​
+​
+# Define the file name and path
+file_path = "D:/RRC_DSML/Second_Term/COMP-2040_Python/Challenge_csv_files/Data_challenge.csv"
+'''print data and average using created function'''
+​
+#file is oppened again to print the data in first row
+with open(file_path, "r") as file:
+    data_print = [line.split(',')[0] for line in file]
+for i in data_print:
+   print(i)
+​
+#print average usin preconfigured function
+print("Average Temperature:", avg_data)
+​
+Temp
+1.1
+3.3
+8.8
+Average Temperature: 4.4
