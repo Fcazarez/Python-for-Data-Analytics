@@ -1,0 +1,111 @@
+''' Assignment7_RoboTrumps
+Professor: Laurie Cutrone
+Student: Felix Cazarez
+Programming for Data Science
+Description: This code allows a user to choose a robot from a list and displays its stats. 
+The data for each robot are stored in a text file named "cards.txt" and are read into the program at runtime.
+The data is stored in a dictionary with the robot's name as the key and the data as a list of values. 
+If the user inputs "random", the program will choose a random robot from the list. 
+If the user inputs a valid robot name, the stats for that robot are displayed on the screen using turtle graphics'''
+
+# Import the turtle library and the choice function from the random library
+from turtle import *
+from random import choice
+
+# Create a screen object and set its background color to white
+screen = Screen()
+screen.bgcolor('grey')
+
+# Make the turtle invisible and lift its pen
+penup()
+hideturtle()
+
+# Create an empty dictionary to store the robot stats
+robots = {}
+
+# Open the "cards.txt" file in read mode
+file = open('cards.txt', 'r')
+
+# Loop through each line in the file
+for line in file.read().splitlines():
+  # Split the line into separate values using the comma separator
+  name, battery, intelligence, usefulness, speed, image, colour = line.split(', ')
+  
+  # Store the robot's stats in the robots dictionary with the name as the key
+  robots[name] = [battery, intelligence, usefulness, speed, image, colour]
+  
+  # Register the shape image for the turtle to use
+  screen.register_shape(image)
+
+# Close the file
+file.close()
+
+# Print the list of robots
+print("List of robots: ")
+for i in robots.keys():
+  print(i)
+
+
+# Start an infinite loop to allow multiple selections
+while True:
+  # Prompt the user to choose a robot
+  robot = input("Choose a robot or write random: ")
+  
+  # If the user chose "random", randomly select a robot from the list
+  if robot == "random":
+    robot = choice(list(robots.keys()))
+    print(robot)
+  
+  # If the user chose a valid robot, display its stats
+  if robot in robots:
+    # Retrieve the stats for the chosen robot
+    stats = robots[robot]
+    
+    # Set the font style for the text
+    style = ('Courier', 14, 'bold')
+    
+    # Clear the screen
+    clear()
+    
+    # Set the color for the turtle
+    color(stats[5])
+    
+    # Move the turtle to the top of the screen
+    goto(0, 100)
+    
+    # Set the turtle's shape to the robot's image
+    shape(stats[4])
+    
+    # Set the turtle's heading to face upwards
+    setheading(90)
+    
+    # Stamp the turtle's shape on the screen
+    stamp()
+    
+    # Set the turtle's heading to face downwards
+    setheading(-90)
+    
+    # Move the turtle down and display the name
+    forward(100)
+    write('Name: ' + robot, font=style, align='center')
+    
+    # Move the turtle down and display the battery life
+    forward(25)
+    write('Battery: ' + stats[0], font=style, align='center')
+    
+    # Move the turtle down and display the intelligence
+    forward(25)
+    write('Intelligence: ' + stats[1], font=style, align='center')
+    
+    # Move the turtle down and display the usefulness
+    forward(25)
+    write('Usefulness: ' + stats[2], font=style, align='center')
+    
+    # Move the turtle down and display the speed
+    forward(25)
+  # if it is not random or robot, then error
+  else: 
+    print("This is not a Robot")
+
+
+https://trinket.io/python/4bfab38584
